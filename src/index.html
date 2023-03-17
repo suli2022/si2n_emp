@@ -11,6 +11,11 @@
     <div class="container">
         <h1>Dolgozók</h1>
 
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Hozzáadás
+        </button>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -24,6 +29,62 @@
         </table>
 
     </div>
+
+
+    <!-- Hozzáadás modális ablak -->
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+
+            <div class="addForm">
+                <div class="mt-3">
+                    <label for="id" class="form-label">Az</label>
+                    <input type="text" class="form-control"
+                    id="id">
+                </div>
+                <div class="mt-3">
+                    <label for="name" class="form-label">Név</label>
+                    <input type="text" class="form-control"
+                    id="name">
+                </div>
+                <div class="mt-3">
+                    <label for="city" class="form-label">Település</label>
+                    <input type="text" class="form-control"
+                    id="city">
+                </div>
+                <div class="mt-3">
+                    <label for="salary" class="form-label">Fizetés</label>
+                    <input type="text" class="form-control"
+                    id="salary">
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"
+          id="saveButton">
+            Mentés
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
     <script src="js/bootstrap.js"></script>
     <script src="app.js"></script>
 </body>
