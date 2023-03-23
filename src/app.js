@@ -1,6 +1,10 @@
 const doc = {
-    tbody: null,
-    saveButton: null
+    tbody: document.querySelector('#tbody'),
+    saveButton: document.querySelector('#saveButton'),
+    idInput: document.querySelector('#id'),
+    nameInput: document.querySelector('#name'),
+    cityInput: document.querySelector('#city'),
+    salaryInput: document.querySelector('#salary')
 };
 const state = {
     dolgozoLista: [],
@@ -13,12 +17,45 @@ window.addEventListener('load', () => {
 
 function init() {
     state.host = 'http://localhost:8000/';
-    doc.tbody = document.querySelector('#tbody');
-    doc.saveButton = document.querySelector('#saveButton');
     doc.saveButton.addEventListener('click', () => {
-        console.log('műkszik')
+        startAddEmployee();
     });
     getEmployee();
+}
+
+function startAddEmployee() {
+    let name = doc.nameInput.value;
+    let city = doc.cityInput.value;
+    let salary = Number(doc.salaryInput.value);
+    let employee = {
+        name: name,
+        city: city,
+        salary: salary
+    };
+    addEmployee(employee);
+}
+
+function addEmployee(employee) {
+    let endpoint = 'employees';
+    let url = state.host + endpoint;
+    fetch(url, {
+        method: 'post',
+        body: JSON.stringify(employee),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    .then( response => response.json())
+    .then( result => {
+        console.log(result);
+        clearModalFields();
+    });
+}
+
+function clearModalFields() {
+    doc.nameInput.value = '';
+    doc.cityInput.value = '';
+    doc.salaryInput.value = '';
 }
 
 function getEmployee() {

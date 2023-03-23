@@ -35,18 +35,6 @@
       "city": "Miskolc",
       "salary": 390,
       "id": 7
-    },
-    {
-      "name": "aaa",
-      "city": "bbb",
-      "salary": null,
-      "id": 8
-    },
-    {
-      "name": "bbbb",
-      "city": "bbb",
-      "salary": 3333,
-      "id": 9
     }
   ],
   "ranks": [
