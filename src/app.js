@@ -4,7 +4,8 @@ const doc = {
     idInput: document.querySelector('#id'),
     nameInput: document.querySelector('#name'),
     cityInput: document.querySelector('#city'),
-    salaryInput: document.querySelector('#salary')
+    salaryInput: document.querySelector('#salary'),
+    operationModalLabel: document.querySelector('#operationModalLabel')
 };
 const state = {
     dolgozoLista: [],
@@ -27,6 +28,7 @@ function startAddEmployee() {
     let name = doc.nameInput.value;
     let city = doc.cityInput.value;
     let salary = Number(doc.salaryInput.value);
+    console.log(name)
     let employee = {
         name: name,
         city: city,
@@ -90,6 +92,19 @@ function deleteEmployee(id) {
     
 }
 
+function startEditEmployee(event) {
+    let id = event.getAttribute('data-id');
+    let name = event.getAttribute('data-name');
+    let city = event.getAttribute('data-city');
+    let salary = event.getAttribute('data-salary');
+    // console.log(id, name)
+    doc.idInput.value = id;
+    doc.nameInput.value = name;
+    doc.cityInput.value = city;
+    doc.salaryInput.value = salary;
+    doc.operationModalLabel.textContent = 'Szerkesztés'
+}
+
 function startDeleteEmployee(event) {
     let id = event.getAttribute('data-id');
     deleteEmployee(id);
@@ -110,6 +125,17 @@ function render() {
                     onclick="startDeleteEmployee(this)"
                     data-id="${dolgozo.id}"
                     >Törlés</button>
+                </td>
+                <td>
+                    <button class="btn btn-primary"
+                    onclick="startEditEmployee(this)"
+                    data-id="${dolgozo.id}"
+                    data-name="${dolgozo.name}"
+                    data-city="${dolgozo.city}"
+                    data-salary="${dolgozo.salary}"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#operationModal"
+                    >Szerkesztés</button>
                 </td>
             </tr>
         `;
