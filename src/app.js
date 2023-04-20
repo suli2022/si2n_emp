@@ -9,7 +9,8 @@ const doc = {
 };
 const state = {
     dolgozoLista: [],
-    host: null
+    host: null,
+    adding: true
 };
 
 window.addEventListener('load', () => {
@@ -19,9 +20,13 @@ window.addEventListener('load', () => {
 function init() {
     state.host = 'http://localhost:8000/';
     doc.saveButton.addEventListener('click', () => {
-        startAddEmployee();
+        if(state.adding) {
+            startAddEmployee();
+        }else {
+            startUpdate();
+        }
     });
-    getEmployee();
+    getEmployees();
 }
 
 function startAddEmployee() {
@@ -35,6 +40,7 @@ function startAddEmployee() {
         salary: salary
     };
     addEmployee(employee);
+    getEmployees();
 }
 
 function addEmployee(employee) {
@@ -60,7 +66,7 @@ function clearModalFields() {
     doc.salaryInput.value = '';
 }
 
-function getEmployee() {
+function getEmployees() {
     let endpoint = 'employees';
     let url = state.host + endpoint;
     fetch(url)
@@ -86,13 +92,14 @@ function deleteEmployee(id) {
     .then(response => response.json())
     .then(result => {
         console.log(result);
-        getEmployee();
+        getEmployees();
         render();
     });
     
 }
 
 function startEditEmployee(event) {
+    state.adding = false;
     let id = event.getAttribute('data-id');
     let name = event.getAttribute('data-name');
     let city = event.getAttribute('data-city');
@@ -103,6 +110,37 @@ function startEditEmployee(event) {
     doc.cityInput.value = city;
     doc.salaryInput.value = salary;
     doc.operationModalLabel.textContent = 'Szerkesztés'
+}
+function startUpdate() {
+    let id = doc.idInput.value;
+    let name = doc.nameInput.value;
+    let city = doc.cityInput.value;
+    let salary = doc.salaryInput.value;
+    let employee = {
+        id: id,
+        name: name,
+        city: city,
+        salary: salary
+    };
+    updateEmployee(employee);
+    state.adding = true;
+    getEmployees();
+}
+
+function updateEmployee(employee) {
+    let endpoint = 'employees';
+    let url = state.host + endpoint + "/" + employee.id;
+    fetch(url, {
+        method: 'put',
+        body: JSON.stringify(employee),
+        headers: {
+            'Content-Type':'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+    });
 }
 
 function startDeleteEmployee(event) {
